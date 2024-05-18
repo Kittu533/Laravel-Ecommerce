@@ -28,7 +28,7 @@
                     <h1 class="auth-title">Log in.</h1>
                     <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
 
-                    <form action="{{ route('login-pos') }}" method="POST">
+                    <form action="{{ route('login-post') }}" method="POST">
                         @csrf
                         <!-- CSRF protection -->
                         <div class="form-group position-relative has-icon-left mb-4">

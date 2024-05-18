@@ -6,6 +6,7 @@ use App\Models\produk;
 
 use App\Models\product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateproductRequest;
 
 class ProductController extends Controller
@@ -16,6 +17,8 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $Produk=Produk::all();
+        return view('admin.product.index',['produk'=>$Produk]);
     }
 
     /**
@@ -43,17 +46,19 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(product $product)
+    public function edit($id)
     {
         //
+        $produk = produk::find($id);
+        return view('admin.product.edit',['produk'=>$produk]);
     }
+    
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateproductRequest $request, product $product)
-    {
-        //
+    public function update(){
+
     }
 
     /**
@@ -76,4 +81,6 @@ class ProductController extends Controller
         produk::create($validasi);
         return view('admin.product.create');
     }
+
+   
 }
