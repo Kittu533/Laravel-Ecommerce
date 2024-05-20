@@ -9,7 +9,7 @@
         @include('partials.sidebar')
         <div id="main">
             @include('partials.topbar')
-
+            @include('sweetalert::alert')
             <div class="page-heading">
                 <h3>Profile Statistics</h3>
             </div>

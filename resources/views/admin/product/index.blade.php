@@ -7,6 +7,7 @@
     <script src="assets/static/js/initTheme.js"></script>
     <div id="app">
         @include('partials.sidebar')
+        @include('sweetalert::alert')
         <div id="main">
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
@@ -36,13 +37,13 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
-                                Simple Datatable
+                               <a href="{{route('product.create')}}" class="btn btn-primary">Tambah Produk</a>
                             </h5>
                         </div>
                         <div class="card-body">
                             <table class="table table-striped" id="table1">
                                 <thead>
-                                    <td>
+                                 
                                         <tr>
                                             <th>Nama Produk</th>
                                             <th>Deskripsi Produk</th>
@@ -52,15 +53,13 @@
                                             <th>Stok Produk</th>
                                             <th>Aksi</th>
                                         </tr>
-                                    </td>
-
-
+                           
                                 </thead>
                                 <tbody>
                                     @foreach ($produk as $Produk)
                                         <tr>
                                             <td>{{$Produk->nama_produk }}</td>
-                                            <td>{{$Produk->Deskripsi_Produk }}</td>
+                                            <td>{{$Produk->deskripsi_produk }}</td>
                                             <td>{{$Produk->harga_produk }}</td>
                                             <td>{{$Produk->kategori_produk}}</td>
                                             <td>{{$Produk->berat_produk }}</td>
@@ -68,6 +67,13 @@
                                             <td>
                                                 <a href="{{route('product.edit', $Produk->id)}}"
                                                     class="btn btn-warning">Edit</a>
+                                                <form action="{{route('product.destroy', $Produk->id)}}" method="POST"
+                                                    class="d-inline">
+                                                    
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
 
                                             </td>
                                         </tr>

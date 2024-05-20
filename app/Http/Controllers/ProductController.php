@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\produk;
-
-use App\Models\product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\UpdateproductRequest;
 
 class ProductController extends Controller
@@ -38,7 +37,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(product $product)
+    public function show(produk $produk)
     {
         //
     }
@@ -46,7 +45,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit( $id)
     {
         //
         $produk = produk::find($id);
@@ -57,16 +56,31 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(){
-
-    }
+    public function update(Request $request, $id){
+        $validasi = $request->validate([
+            'nama_produk' => 'required',
+            'deskripsi_produk' => 'required',
+            'harga_produk' => 'required',
+            'kategori_produk' => 'required',
+            'berat_produk' => 'required',
+            'stok_produk' => 'required',
+        ]);
+        $produk = produk::find($id);
+        $produk->update($validasi);
+        Alert::success('Succes','Data Berhasil Di ubah');
+        return redirect(route('product.index'));
+    }   
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(product $product)
+    public function destroy($id)
     {
         //
+        $produk = produk::find($id);
+        $produk->delete();
+        Alert::success('Succes','Data Berhasil Dihapus');
+        return redirect(route('product.index'));
     }
     public function store(Request $request)
     {
@@ -79,7 +93,8 @@ class ProductController extends Controller
             'stok_produk' => 'required',
         ]);
         produk::create($validasi);
-        return view('admin.product.create');
+        Alert::success('Succes','Data Berhasil Di tambah');
+        return redirect(route('product.index'));
     }
 
    

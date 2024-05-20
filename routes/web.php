@@ -39,3 +39,6 @@ Route::get('/dataTable', function () {
 Route::get('/dataTable', function (){
     return view('admin.dataTable');
 });
+
+// UPDATE PRODUK
+Route::post('/produk/{id}',[ProductController::class, 'update'])->name('produks.update');
